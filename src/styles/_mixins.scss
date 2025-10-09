@@ -1,0 +1,27 @@
+@use 'variables' as *;
+
+@mixin ellipsis($line, $line-height: 1px) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: $line-height;
+
+  @if $line == 1 {
+    white-space: nowrap;
+  } @else {
+    display: -webkit-box;
+    max-height: ($line * $line-height);
+    -webkit-line-clamp: $line;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
