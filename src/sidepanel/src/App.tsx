@@ -1,16 +1,14 @@
 import { eq } from 'es-toolkit/compat'
 import { useEffect, useState } from 'react'
 
-import type { ChromeStorage } from '~/types'
 import { Availability, SummarizerFormat, SummarizerLength, SummarizerType } from '~/types'
 
 import css from './App.module.scss'
 import useCheckAvailability from './hooks/useCheckAvailability'
+import type { Options } from './hooks/useDownloadSummarizer'
 import useDownloadSummarizer from './hooks/useDownloadSummarizer'
 import useLoadSavedOptions from './hooks/useLoadSavedOptions'
 import getAvailabilityMessage from './utils/getAvailabilityMessage'
-
-type Options = NonNullable<ChromeStorage['summarizerOptions']>
 
 const defaultOptions: Options = {
   type: SummarizerType.KeyPoints,
@@ -20,33 +18,17 @@ const defaultOptions: Options = {
 }
 
 const App = () => {
+  const [options, setOptions] = useState<Options>(defaultOptions)
   const { data: availability, error: availabilityError } = useCheckAvailability()
   const { data: savedOptions } = useLoadSavedOptions()
-  const { mutate: downloadSummarizer, isSuccess, error: downloadError } = useDownloadSummarizer()
-  const [downloadProgress, setDownloadProgress] = useState(0)
-  const [options, setOptions] = useState<Options>(defaultOptions)
-  const downloading = downloadProgress > 0 && downloadProgress < 100
-  const downloadCompleted = eq(downloadProgress, 100)
+  const {
+    handleDownload,
+    downloadProgress,
+    downloading,
+    downloadCompleted,
+    error: downloadError,
+  } = useDownloadSummarizer(options)
   const disabled = downloading || eq(availability, Availability.Unavailable)
-  const handleDownload = () => {
-    setDownloadProgress(0)
-    downloadSummarizer(
-      {
-        ...options,
-        onProgress: (progress) => {
-          setDownloadProgress(progress)
-        },
-      },
-      {
-        onSuccess: async () => {
-          await chrome.storage.local.set<ChromeStorage>({
-            summarizerOptions: options,
-            summarizerReady: true,
-          })
-        },
-      },
-    )
-  }
   useEffect(() => {
     if (savedOptions) {
       setOptions((prev) => ({ ...prev, ...savedOptions }))
@@ -177,3 +159,4 @@ const App = () => {
 }
 
 export default App
+export type { Options }

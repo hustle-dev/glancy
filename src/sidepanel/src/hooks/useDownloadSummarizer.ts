@@ -1,30 +1,49 @@
-import { useMutation } from '@tanstack/react-query'
+import { eq } from 'es-toolkit/compat'
+import { useCallback, useState } from 'react'
 
-import type { SummarizerOptions } from '~/types'
+import type { ChromeStorage } from '~/types'
 
-const useDownloadSummarizer = () => {
-  return useMutation({
-    mutationFn: async (options: SummarizerOptions) => {
+type Options = NonNullable<ChromeStorage['summarizerOptions']>
+
+const useDownloadSummarizer = (options: Options) => {
+  const [downloadProgress, setDownloadProgress] = useState(0)
+  const [error, setError] = useState<Error | null>(null)
+  const downloading = downloadProgress > 0 && downloadProgress < 100
+  const downloadCompleted = eq(downloadProgress, 100)
+  const handleDownload = useCallback(async () => {
+    setDownloadProgress(0)
+    setError(null)
+    try {
       if (!navigator.userActivation.isActive) {
         throw new Error('사용자 활성화가 필요합니다. 버튼을 다시 클릭해주세요.')
       }
-      const { onProgress, type, format, length, sharedContext } = options
+      const { type, format, length, sharedContext } = options
       const summarizer = await self.Summarizer.create({
         type,
         format,
         length,
-        sharedContext: sharedContext ?? '',
+        sharedContext,
         monitor(m) {
           m.addEventListener('downloadprogress', (e) => {
             const downloadEvent = e as unknown as { loaded: number }
             const progress = Math.round(downloadEvent.loaded * 100)
-            onProgress?.(progress)
+            setDownloadProgress(progress)
           })
         },
       })
+      await chrome.storage.local.set<ChromeStorage>({
+        summarizerOptions: options,
+        summarizerReady: true,
+      })
       return summarizer
-    },
-  })
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('알 수 없는 오류가 발생했습니다.')
+      setError(error)
+      throw error
+    }
+  }, [options])
+  return { handleDownload, downloadProgress, downloading, downloadCompleted, error }
 }
 
 export default useDownloadSummarizer
+export type { Options }
