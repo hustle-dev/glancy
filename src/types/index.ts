@@ -1,5 +1,7 @@
 export { default as Availability } from './Availability'
+export type { ChromeStorage } from './ChromeStorage'
 export { default as SummarizerFormat } from './SummarizerFormat'
 export { default as SummarizerLength } from './SummarizerLength'
+export type { SummarizerOptions } from './SummarizerOptions'
 export { default as SummarizerType } from './SummarizerType'
 export type { ValueOf } from './ValueOf'
