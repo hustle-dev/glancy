@@ -1,6 +1,6 @@
 import { Availability } from '~/types'
 
-const getAvailabilityMessage = (availability: Availability | null) => {
+const getAvailabilityMessage = (availability: Availability | undefined) => {
   switch (availability) {
     case Availability.Available:
       return '✅ Glancy 요약기를 바로 사용할 수 있습니다.'
