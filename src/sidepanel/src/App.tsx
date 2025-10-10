@@ -22,9 +22,12 @@ const defaultOptions: Options = {
 const App = () => {
   const { data: availability, error: availabilityError } = useCheckAvailability()
   const { data: savedOptions } = useLoadSavedOptions()
-  const { mutate: downloadSummarizer, isPending, isSuccess, error: downloadError } = useDownloadSummarizer()
+  const { mutate: downloadSummarizer, isSuccess, error: downloadError } = useDownloadSummarizer()
   const [downloadProgress, setDownloadProgress] = useState(0)
   const [options, setOptions] = useState<Options>(defaultOptions)
+  const downloading = downloadProgress > 0 && downloadProgress < 100
+  const downloadCompleted = eq(downloadProgress, 100)
+  const disabled = downloading || eq(availability, Availability.Unavailable)
   const handleDownload = () => {
     setDownloadProgress(0)
     downloadSummarizer(
@@ -59,6 +62,14 @@ const App = () => {
         <h2>상태</h2>
         <p className={css.status}>{getAvailabilityMessage(availability)}</p>
       </div>
+      {downloading && (
+        <div className={css.progressSection}>
+          <div className={css.progressBar}>
+            <div className={css.progressFill} style={{ width: `${downloadProgress.toString()}%` }} />
+          </div>
+          <p className={css.progressText}>다운로드 중... {downloadProgress}%</p>
+        </div>
+      )}
       {availabilityError && (
         <div className={css.messageError}>
           <strong>오류:</strong> {availabilityError.message}
@@ -70,7 +81,7 @@ const App = () => {
           {downloadError instanceof Error ? downloadError.message : '모델 다운로드 중 오류가 발생했습니다.'}
         </div>
       )}
-      {isSuccess && (
+      {downloadCompleted && (
         <div className={css.messageSuccess}>
           <strong>성공!</strong> Summarizer 모델이 성공적으로 설정되었습니다.
         </div>
@@ -85,7 +96,7 @@ const App = () => {
             onChange={(e) => {
               setOptions({ ...options, type: e.target.value as SummarizerType })
             }}
-            disabled={isPending}
+            disabled={disabled}
           >
             <option value={SummarizerType.KeyPoints}>핵심 요점</option>
             <option value={SummarizerType.Tldr}>TL;DR (간단 요약)</option>
@@ -107,7 +118,7 @@ const App = () => {
             onChange={(e) => {
               setOptions({ ...options, format: e.target.value as SummarizerFormat })
             }}
-            disabled={isPending}
+            disabled={disabled}
           >
             <option value={SummarizerFormat.Markdown}>마크다운</option>
             <option value={SummarizerFormat.PlainText}>일반 텍스트</option>
@@ -121,7 +132,7 @@ const App = () => {
             onChange={(e) => {
               setOptions({ ...options, length: e.target.value as SummarizerLength })
             }}
-            disabled={isPending}
+            disabled={disabled}
           >
             <option value={SummarizerLength.Short}>짧게</option>
             <option value={SummarizerLength.Medium}>중간</option>
@@ -138,37 +149,18 @@ const App = () => {
             }}
             placeholder="요약 품질을 향상시킬 배경 정보를 입력하세요..."
             rows={3}
-            disabled={isPending}
+            disabled={disabled}
           />
           <p className={css.optionDescription}>예: &quot;이 문서는 기술에 익숙한 독자를 대상으로 합니다.&quot;</p>
         </div>
       </div>
-      {isPending && (
-        <div className={css.progressSection}>
-          <div className={css.progressBar}>
-            <div className={css.progressFill} style={{ width: `${downloadProgress.toString()}%` }} />
-          </div>
-          <p className={css.progressText}>다운로드 중... {downloadProgress}%</p>
-        </div>
-      )}
       <div className={css.actionSection}>
         <button
           className={css.downloadButton}
           onClick={handleDownload}
-          disabled={
-            isPending ||
-            eq(availability, Availability.Unavailable) ||
-            eq(availability, Availability.Downloadable) ||
-            isSuccess
-          }
+          disabled={disabled || eq(availability, Availability.Downloadable)}
         >
-          {isPending
-            ? '다운로드 중...'
-            : isSuccess
-              ? '✓ 완료'
-              : eq(availability, Availability.Downloadable) || eq(availability, Availability.Available)
-                ? '설정 저장 및 Summarizer 생성'
-                : '모델 다운로드 및 설정'}
+          {downloading ? '다운로드 중...' : '설정 저장 및 Summarizer 생성'}
         </button>
       </div>
       <div className={css.infoSection}>
