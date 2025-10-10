@@ -39,7 +39,7 @@ interface Summarizer {
   readonly outputLanguage: string
   readonly inputQuota: number
   summarize(input: string, options?: SummarizeOptions): Promise<string>
-  summarizeStreaming(input: string, options?: SummarizeOptions): ReadableStream
+  summarizeStreaming(input: string, options?: SummarizeOptions): ReadableStream<string>
   measureInputUsage(input: string, options?: SummarizeOptions): Promise<number>
   destroy(): void
 }
