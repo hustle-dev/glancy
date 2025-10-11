@@ -140,7 +140,7 @@ const App = () => {
         <button
           className={css.downloadButton}
           onClick={handleDownload}
-          disabled={disabled || eq(availability, Availability.Downloadable)}
+          disabled={disabled || eq(availability, Availability.Downloading)}
         >
           {downloading ? '다운로드 중...' : '설정 저장 및 Summarizer 생성'}
         </button>
