@@ -1,5 +1,3 @@
-@use 'variables' as *;
-
 @mixin ellipsis($line, $line-height: 1px) {
   display: block;
   overflow: hidden;
