@@ -1,39 +1,24 @@
 import { eq } from 'es-toolkit/compat'
-import { useEffect, useState } from 'react'
 
 import { Availability, SummarizerFormat, SummarizerLength, SummarizerType } from '~/types'
 
 import css from './App.module.scss'
 import useCheckAvailability from './hooks/useCheckAvailability'
-import type { Options } from './hooks/useDownloadSummarizer'
 import useDownloadSummarizer from './hooks/useDownloadSummarizer'
-import useLoadSavedOptions from './hooks/useLoadSavedOptions'
+import useSummarizerOptions from './hooks/useSummarizerOptions'
 import getAvailabilityMessage from './utils/getAvailabilityMessage'
 
-const defaultOptions: Options = {
-  type: SummarizerType.KeyPoints,
-  format: SummarizerFormat.Markdown,
-  length: SummarizerLength.Medium,
-  sharedContext: '',
-}
-
 const App = () => {
-  const [options, setOptions] = useState<Options>(defaultOptions)
-  const { data: availability, error: availabilityError } = useCheckAvailability()
-  const { data: savedOptions } = useLoadSavedOptions()
+  const { options, setOptions } = useSummarizerOptions()
+  const { data: availability, error: availabilityError, refetch } = useCheckAvailability()
   const {
     handleDownload,
     downloadProgress,
     downloading,
     downloadCompleted,
     error: downloadError,
-  } = useDownloadSummarizer(options)
+  } = useDownloadSummarizer(options, refetch)
   const disabled = downloading || eq(availability, Availability.Unavailable)
-  useEffect(() => {
-    if (savedOptions) {
-      setOptions((prev) => ({ ...prev, ...savedOptions }))
-    }
-  }, [savedOptions])
   return (
     <div className={css.root}>
       <header className={css.header}>
@@ -159,4 +144,3 @@ const App = () => {
 }
 
 export default App
-export type { Options }

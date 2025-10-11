@@ -1,11 +1,11 @@
 import { eq } from 'es-toolkit/compat'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import type { ChromeStorage } from '~/types'
 
-type Options = NonNullable<ChromeStorage['summarizerOptions']>
+import type { Options } from './useSummarizerOptions'
 
-const useDownloadSummarizer = (options: Options) => {
+const useDownloadSummarizer = (options: Options, refetchAvailability: () => void) => {
   const [downloadProgress, setDownloadProgress] = useState(0)
   const [error, setError] = useState<Error | null>(null)
   const downloading = downloadProgress > 0 && downloadProgress < 100
@@ -18,7 +18,7 @@ const useDownloadSummarizer = (options: Options) => {
         throw new Error('사용자 활성화가 필요합니다. 버튼을 다시 클릭해주세요.')
       }
       const { type, format, length, sharedContext } = options
-      const summarizer = await self.Summarizer.create({
+      await self.Summarizer.create({
         type,
         format,
         length,
@@ -35,15 +35,18 @@ const useDownloadSummarizer = (options: Options) => {
         summarizerOptions: options,
         summarizerReady: true,
       })
-      return summarizer
     } catch (err) {
       const error = err instanceof Error ? err : new Error('알 수 없는 오류가 발생했습니다.')
       setError(error)
       throw error
     }
   }, [options])
+  useEffect(() => {
+    if (downloadCompleted) {
+      refetchAvailability()
+    }
+  }, [downloadCompleted, refetchAvailability])
   return { handleDownload, downloadProgress, downloading, downloadCompleted, error }
 }
 
 export default useDownloadSummarizer
-export type { Options }
