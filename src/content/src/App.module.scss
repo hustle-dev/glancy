@@ -1,6 +1,11 @@
 @use 'functions' as *;
+@use 'mixins' as *;
 
-.root {
+:where(.root) {
+  @include reset;
+}
+
+.wrapper {
   position: fixed;
   right: rem(20px);
   bottom: rem(20px);

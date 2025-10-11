@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { useEffect, useState } from 'react'
 
 import type { ChromeStorage } from '~/types'
@@ -87,7 +88,7 @@ const App = () => {
   }
   if (!isVisible) return null
   return (
-    <div className={css.root}>
+    <div className={clsx(css.root, css.wrapper)}>
       <div className={css.header}>
         <h3>✨ Glancy 요약기</h3>
         <button className={css.close} onClick={handleClose}>
