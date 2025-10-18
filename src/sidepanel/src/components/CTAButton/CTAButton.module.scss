@@ -1,0 +1,41 @@
+@use 'functions' as *;
+
+.root {
+  display: flex;
+  gap: rem(10px);
+  align-items: center;
+  justify-content: center;
+  width: rem(224px);
+  height: rem(50px);
+  padding: rem(14px) rem(24px);
+  font-size: rem(15px);
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  background: #07f;
+  border: 1px solid #c3e0ff;
+  border-radius: rem(50px);
+  transition: all 0.2s ease;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &:hover:not(:disabled) {
+    background: #06d;
+    box-shadow: 0 rem(4px) rem(12px) rgb(0 119 255 / 30%);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: rem(15px);
+  height: rem(14px);
+}

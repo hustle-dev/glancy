@@ -1,0 +1,36 @@
+@use 'functions' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: rem(10px);
+  align-items: center;
+  padding: rem(8px) rem(12px);
+  font-size: rem(13px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #a4b0ca;
+  outline: none;
+  background: #fff;
+  border: 1px solid transparent;
+  border-radius: rem(6px);
+  transition: all 0.2s ease;
+
+  &::placeholder {
+    color: #a4b0ca;
+  }
+
+  &:focus {
+    color: #2f3d58;
+    border-color: #2f3d58;
+  }
+
+  &:not(:placeholder-shown) {
+    color: #2f3d58;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
