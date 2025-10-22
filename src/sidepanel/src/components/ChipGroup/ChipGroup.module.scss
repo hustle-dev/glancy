@@ -19,24 +19,23 @@
   white-space: nowrap;
   cursor: pointer;
   background: #fff;
-  border: 1px solid #e6eaf1;
+  border: rem(1px) solid #e6eaf1;
   border-radius: rem(56px);
   transition: all 0.2s ease;
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
   }
 
   &:hover:not([data-state='on'], :disabled) {
-    background: #f9fafb;
-    border-color: #d1d8e5;
+    background: #d7e4ff;
+    border-color: transparent;
   }
 
   &[data-state='on'] {
     font-weight: 700;
     color: #fff;
     background: #2f3d58;
-    border-color: #2f3d58;
+    border-color: transparent;
   }
 }

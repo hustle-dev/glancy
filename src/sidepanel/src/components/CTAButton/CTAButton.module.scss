@@ -14,18 +14,19 @@
   cursor: pointer;
   outline: none;
   background: #07f;
-  border: 1px solid #c3e0ff;
+  border: rem(1px) solid #c3e0ff;
   border-radius: rem(50px);
+  box-shadow:
+    rem(-50px) rem(4px) rem(48.9px) 0 rgb(201 166 255 / 20%),
+    rem(30px) rem(4px) rem(45px) 0 rgb(84 175 255 / 40%);
   transition: all 0.2s ease;
 
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
+    background: #d8dbe7;
   }
 
   &:hover:not(:disabled) {
-    background: #06d;
-    box-shadow: 0 rem(4px) rem(12px) rgb(0 119 255 / 30%);
     transform: translateY(-1px);
   }
 

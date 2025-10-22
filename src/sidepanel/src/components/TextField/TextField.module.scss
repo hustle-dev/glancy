@@ -5,14 +5,15 @@
   flex-direction: column;
   gap: rem(10px);
   align-items: center;
+  height: rem(34px);
   padding: rem(8px) rem(12px);
   font-size: rem(13px);
   font-weight: 500;
   line-height: 1.4;
-  color: #a4b0ca;
+  color: #2f3d58;
   outline: none;
   background: #fff;
-  border: 1px solid transparent;
+  border: 0;
   border-radius: rem(6px);
   transition: all 0.2s ease;
 
@@ -20,17 +21,7 @@
     color: #a4b0ca;
   }
 
-  &:focus {
-    color: #2f3d58;
-    border-color: #2f3d58;
-  }
-
-  &:not(:placeholder-shown) {
-    color: #2f3d58;
-  }
-
   &:disabled {
     cursor: not-allowed;
-    opacity: 0.5;
   }
 }
