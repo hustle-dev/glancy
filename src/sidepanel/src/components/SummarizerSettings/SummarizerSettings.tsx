@@ -1,5 +1,7 @@
 import { eq } from 'es-toolkit/compat'
+import { useState } from 'react'
 
+import Toast from '~/components/Toast'
 import { Availability, SummarizerFormat, SummarizerLength, SummarizerType } from '~/types'
 
 import CTAButton from '../CTAButton'
@@ -36,6 +38,14 @@ const SummarizerSettings = () => {
   const { data: availability, refetch } = useSuspenseCheckAvailability()
   const { handleDownload, downloadProgress, downloading } = useDownloadSummarizer(options, refetch)
   const disabled = downloading || eq(availability, Availability.Unavailable)
+  const [toastOpen, setToastOpen] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const handleSaveSettings = async () => {
+    await handleDownload()
+    const message = eq(availability, Availability.Downloadable) ? 'Downloading Model...' : 'Setup is complete!'
+    setToastMessage(message)
+    setToastOpen(true)
+  }
   return (
     <div className={css.root}>
       <header className={css.header}>
@@ -111,10 +121,15 @@ const SummarizerSettings = () => {
         </section>
       </main>
       <div className={css.actionSection}>
-        <CTAButton onClick={handleDownload} disabled={disabled || eq(availability, Availability.Downloading)}>
-          {downloading ? 'Downloading...' : 'Save Settings'}
+        <CTAButton onClick={handleSaveSettings} disabled={disabled || eq(availability, Availability.Downloading)}>
+          {downloading
+            ? 'Downloading...'
+            : eq(availability, Availability.Downloadable)
+              ? 'Download Model & Save'
+              : 'Save Settings'}
         </CTAButton>
       </div>
+      <Toast open={toastOpen} onOpenChange={setToastOpen} message={toastMessage} />
     </div>
   )
 }
