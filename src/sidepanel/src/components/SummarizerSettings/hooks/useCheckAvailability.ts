@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
 const useCheckAvailability = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['summarizer', 'availability'],
     queryFn: async () => {
       if (!('Summarizer' in self)) {

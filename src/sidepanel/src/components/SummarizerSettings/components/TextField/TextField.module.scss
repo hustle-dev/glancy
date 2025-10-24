@@ -1,16 +1,16 @@
 @use 'functions' as *;
 
 .root {
-  display: flex;
-  flex-direction: column;
-  gap: rem(10px);
-  align-items: center;
-  height: rem(34px);
+  display: block;
+  width: 100%;
+  height: rem(70px);
   padding: rem(8px) rem(12px);
+  font-family: Pretendard, sans-serif;
   font-size: rem(13px);
   font-weight: 500;
   line-height: 1.4;
   color: #2f3d58;
+  resize: none;
   outline: none;
   background: #fff;
   border: 0;

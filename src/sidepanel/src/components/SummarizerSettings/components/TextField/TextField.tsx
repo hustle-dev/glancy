@@ -7,10 +7,9 @@ interface Props {
   onChange: (value: string) => void
 }
 
-const TextField = ({ value, placeholder = 'Text Field', disabled = false, onChange }: Props) => {
+const TextField = ({ value, placeholder, disabled = false, onChange }: Props) => {
   return (
-    <input
-      type="text"
+    <textarea
       className={css.root}
       value={value}
       onChange={(e) => {
@@ -18,6 +17,7 @@ const TextField = ({ value, placeholder = 'Text Field', disabled = false, onChan
       }}
       placeholder={placeholder}
       disabled={disabled}
+      rows={3}
     />
   )
 }
