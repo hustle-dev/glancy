@@ -1,0 +1,64 @@
+@use 'functions' as *;
+
+.viewport {
+  position: fixed;
+  bottom: rem(110px);
+  left: 50%;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: rem(10px);
+  align-items: center;
+  width: max-content;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  list-style: none;
+  transform: translateX(-50%);
+}
+
+.root {
+  display: flex;
+  align-items: center;
+  padding: rem(6px) rem(12px);
+  font-size: rem(12px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: #fff;
+  background: #474b59;
+  border-radius: rem(6px);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-state='closed'] {
+    animation: slideDown 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.message {
+  white-space: pre-line;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
