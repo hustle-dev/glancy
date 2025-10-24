@@ -84,14 +84,19 @@ src/
 - `useDownloadSummarizer`: Handles model download with progress tracking
 - `useSummarizerOptions`: Manages configuration state with storage sync
 
+**UI Components**: The project uses Radix UI primitives (via the `radix-ui` package) for accessible, unstyled components:
+- Import from `radix-ui/react-*` (e.g., `radix-ui/react-toast`)
+- All Radix UI components are available through the installed `radix-ui` meta-package
+- Components are styled using SCSS modules to match Figma designs
+
 ### Styling System
 
 SCSS modules are used throughout. Global utilities are in `src/styles/`:
 - `_mixins.scss`: Reusable SCSS mixins
 - `_globals.scss`: CSS variables and global styles
-- `_functions.scss`: SCSS utility functions
+- `_functions.scss`: SCSS utility functions (including `rem()` for px to rem conversion)
 
-Vite is configured to load these from the styles directory automatically (see `vite.config.ts` css.preprocessorOptions).
+Vite is configured to load these from the styles directory automatically (see `vite.config.ts` css.preprocessorOptions), so you can use `@use 'functions' as *;` in any SCSS module to access utilities without specifying the full path.
 
 ### Type System
 
@@ -108,20 +113,24 @@ This project follows extensive frontend design guidelines defined in `.cursor/ru
 - Replace magic numbers with named constants
 - Abstract complex logic into dedicated components
 - Name complex boolean conditions
-- Avoid internal line breaks within function bodies
+- **Avoid internal line breaks within function bodies** (write React components, utils, and hooks as unified blocks)
+- Separate significantly different conditional UI/logic into distinct components
 
 **Predictability**:
-- Always return `UseQueryResult` objects from React Query hooks (don't destructure)
+- **Always return `UseQueryResult` objects from React Query hooks** (don't destructure in hook definitions)
 - Use consistent return types (e.g., discriminated unions for validation)
-- Avoid hidden side effects in functions
+- Avoid hidden side effects in functions (Single Responsibility Principle)
+- Use unique, descriptive names to avoid ambiguity
 
 **Cohesion**:
 - Keep related logic together
 - Choose field-level vs form-level cohesion based on requirements
+- Define constants near related logic or ensure names link them clearly
 
 **Coupling**:
-- Avoid premature abstraction
+- Avoid premature abstraction (allow some duplication if use cases might diverge)
 - Create focused, scoped hooks instead of broad state managers
+- Break down broad state management into smaller, focused hooks/contexts
 
 **Import Sorting**: The project uses `eslint-plugin-simple-import-sort` to automatically sort imports.
 
