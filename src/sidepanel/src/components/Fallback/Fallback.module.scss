@@ -1,0 +1,44 @@
+@use 'functions' as *;
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: rem(16px);
+  align-items: center;
+  justify-content: center;
+  min-height: rem(300px);
+  padding: rem(32px);
+  text-align: center;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: rem(80px);
+  height: rem(80px);
+  margin-bottom: rem(8px);
+  color: #ff4747;
+  background: #ffebeb;
+  border-radius: 50%;
+}
+
+.icon {
+  width: rem(48px);
+  height: rem(48px);
+}
+
+.title {
+  font-size: rem(20px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #2f3d58;
+}
+
+.message {
+  max-width: rem(280px);
+  margin-bottom: rem(8px);
+  font-size: rem(14px);
+  line-height: 1.5;
+  color: #969db2;
+}
