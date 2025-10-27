@@ -10,7 +10,7 @@ interface Props {
 
 const Toast = ({ open, onOpenChange, message }: Props) => {
   return (
-    <RadixToast.Provider swipeDirection="up" duration={3000}>
+    <RadixToast.Provider swipeDirection="up" duration={2000}>
       <RadixToast.Root className={css.root} open={open} onOpenChange={onOpenChange}>
         <RadixToast.Description className={css.message}>{message}</RadixToast.Description>
       </RadixToast.Root>
