@@ -50,6 +50,20 @@
   height: rem(204px);
   margin-top: rem(16px);
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: rem(2px);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    min-height: rem(10px);
+    background-color: #e0e4ec;
+    border-radius: rem(6px);
+  }
 }
 
 .summaryText {
