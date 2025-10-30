@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import root from 'react-shadow'
 
 import FloatingButton from './components/FloatingButton'
@@ -10,6 +10,7 @@ const App = () => {
   const { selection, setSelection, resetSelection } = useTextSelection()
   const { summary, isLoading, isStreaming, summarize, resetSummary } = useSummarizer()
   const { showPopup, anchorEl, openPopup, closePopup } = useFloatingUI()
+  const shadowRootRef = useRef<ShadowRoot | null>(null)
   const handleButtonClick = useCallback(() => {
     openPopup(selection.position)
     setSelection({ ...selection, show: false })
@@ -21,7 +22,15 @@ const App = () => {
     resetSummary()
   }, [closePopup, resetSelection, resetSummary])
   return (
-    <root.div>
+    <root.div
+      ref={(element: HTMLElement | null) => {
+        if (element?.shadowRoot) {
+          shadowRootRef.current = element.shadowRoot
+          const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize)
+          element.style.setProperty('--font-size', rootFontSize.toString())
+        }
+      }}
+    >
       <div className="glancy">
         {selection.show && <FloatingButton position={selection.position} onClick={handleButtonClick} />}
         <SummaryPopup

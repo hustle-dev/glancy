@@ -8,6 +8,9 @@
 
 /// px을 rem 단위로 변경하는 함수
 /// @param {Number} $value - rem 단위로 변경할 값
-@function rem($value, $base: 16px) {
-  @return (remove-unit(math.div($value, $base))) * 1rem;
+/// CSS 변수 --font-size를 사용하여 계산 (기본값: 16)
+@function rem($value) {
+  // calc()를 사용하여 런타임에 CSS 변수 값으로 계산
+  // --font-size가 없으면 16을 기본값으로 사용
+  @return calc(#{remove-unit($value)} / var(--font-size, 16) * 1rem);
 }
