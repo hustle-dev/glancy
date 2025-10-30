@@ -5,7 +5,6 @@
   gap: rem(10px);
   align-items: center;
   justify-content: center;
-  width: rem(224px);
   height: rem(50px);
   padding: rem(14px) rem(24px);
   font-size: rem(15px);
@@ -23,7 +22,9 @@
 
   &:disabled {
     cursor: not-allowed;
-    background: #d8dbe7;
+    background-color: #d8dbe7;
+    border-color: #d8dbe7;
+    box-shadow: none;
   }
 
   &:hover:not(:disabled) {
