@@ -5,7 +5,7 @@ import App from './src/App.tsx'
 
 const container = document.createElement('div')
 container.id = 'glancy'
-document.body.appendChild(container)
+document.documentElement.appendChild(container)
 
 createRoot(container).render(
   <StrictMode>
