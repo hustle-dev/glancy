@@ -41,10 +41,10 @@ const SummarizerSettings = () => {
   const [toastOpen, setToastOpen] = useState(false)
   const [toastMessage, setToastMessage] = useState('')
   const handleSaveSettings = async () => {
-    await handleDownload()
     const message = eq(availability, Availability.Downloadable) ? 'Downloading Model...' : 'Setup is complete!'
     setToastMessage(message)
     setToastOpen(true)
+    await handleDownload()
   }
   return (
     <div className={css.root}>

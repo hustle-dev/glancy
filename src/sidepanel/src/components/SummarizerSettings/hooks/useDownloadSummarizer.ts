@@ -35,12 +35,13 @@ const useDownloadSummarizer = (options: Options, refetchAvailability: () => void
         summarizerOptions: options,
         summarizerReady: true,
       })
+      refetchAvailability()
     } catch (err) {
       const error = err instanceof Error ? err : new Error('알 수 없는 오류가 발생했습니다.')
       setError(error)
       throw error
     }
-  }, [options])
+  }, [options, refetchAvailability])
   useEffect(() => {
     if (downloadCompleted) {
       refetchAvailability()

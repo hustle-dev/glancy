@@ -17,8 +17,8 @@ const DEFAULT_OPTIONS = {
 }
 
 const ERROR_MESSAGES = {
-  NOT_CONFIGURED: '⚠️ Summarizer가 아직 설정되지 않았습니다. 확장 프로그램 아이콘을 클릭하여 설정해주세요.',
-  GENERIC_ERROR: '❌ 요약 생성 중 오류가 발생했습니다:',
+  NOT_CONFIGURED: '⚠️ Summarizer is not configured yet. Please click the extension icon to set it up.',
+  GENERIC_ERROR: '❌ An error occurred while generating the summary:',
 }
 
 const useSummarizer = () => {
