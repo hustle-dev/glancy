@@ -60,7 +60,7 @@ const SummaryPopup = ({ open, anchorEl, summary, isLoading, isStreaming, onClose
           align="center"
           onInteractOutside={handleInteractOutside}
           onEscapeKeyDown={onClose}
-          avoidCollisions={false}
+          collisionPadding={10}
           onMouseUp={(e) => {
             e.stopPropagation()
           }}
