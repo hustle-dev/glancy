@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { Popover, VisuallyHidden } from 'radix-ui'
 import { useState } from 'react'
 
@@ -8,7 +7,6 @@ import ShimmerLoader from './components/ShimmerLoader'
 import CloseIcon from './icons/CloseIcon'
 import CopyIcon from './icons/CopyIcon'
 import TranslateIcon from './icons/TranslateIcon'
-import css from './SummaryPopup.module.scss'
 
 interface Props {
   open: boolean
@@ -53,56 +51,62 @@ const SummaryPopup = ({ open, anchorEl, summary, isLoading, isStreaming, onClose
       }}
     >
       <Popover.Anchor virtualRef={{ current: anchorEl }} />
-      <Popover.Portal>
-        <Popover.Content
-          className={css.root}
-          sideOffset={8}
-          align="center"
-          onInteractOutside={handleInteractOutside}
-          onEscapeKeyDown={onClose}
-          collisionPadding={10}
-          onMouseUp={(e) => {
-            e.stopPropagation()
-          }}
-        >
-          <div className={css.header}>
-            <h2 className={css.title}>Summarize</h2>
-            <Popover.Close className={css.closeButton}>
-              <CloseIcon aria-hidden />
-              <VisuallyHidden.Root>Close</VisuallyHidden.Root>
-            </Popover.Close>
-          </div>
-          {isLoading ? (
-            <ShimmerLoader />
-          ) : (
-            <>
-              <div className={css.content}>
-                <p className={css.summaryText}>
-                  {summary}
-                  {isStreaming && <span className={css.cursor}>▊</span>}
-                </p>
-              </div>
-              <div className={css.actions}>
-                <button className={clsx(css.actionButton, css.translateButton)} onClick={handleTranslate}>
-                  <TranslateIcon aria-hidden />
-                  <VisuallyHidden.Root>Translate</VisuallyHidden.Root>
-                </button>
-                <button className={clsx(css.actionButton, css.copyButton)} onClick={handleCopy}>
-                  <CopyIcon aria-hidden />
-                  <VisuallyHidden.Root>Copy</VisuallyHidden.Root>
-                </button>
-              </div>
-            </>
-          )}
-          <div className={css.gradient} />
-          <Toast
-            open={toast.open}
-            message={toast.message}
-            onOpenChange={handleToastOpenChange}
-            viewPortClassName={css.toastViewport}
-          />
-        </Popover.Content>
-      </Popover.Portal>
+      <Popover.Content
+        className="glancy-summary-popup"
+        sideOffset={8}
+        align="center"
+        onInteractOutside={handleInteractOutside}
+        onEscapeKeyDown={onClose}
+        collisionPadding={10}
+        onMouseUp={(e) => {
+          e.stopPropagation()
+        }}
+      >
+        <div className="glancy-summary-popup__header">
+          <h2 className="glancy-summary-popup__title">Summarize</h2>
+          <Popover.Close className="glancy-summary-popup__close-button">
+            <CloseIcon aria-hidden />
+            <VisuallyHidden.Root>Close</VisuallyHidden.Root>
+          </Popover.Close>
+        </div>
+        {isLoading ? (
+          <ShimmerLoader />
+        ) : (
+          <>
+            <div className="glancy-summary-popup__content">
+              <p className="glancy-summary-popup__summary-text">
+                {summary}
+                {isStreaming && <span className="glancy-summary-popup__cursor">▊</span>}
+              </p>
+            </div>
+            <div className="glancy-summary-popup__actions">
+              <button
+                className="glancy-summary-popup__action-button glancy-summary-popup__action-button--translate"
+                onClick={handleTranslate}
+              >
+                <TranslateIcon aria-hidden />
+                <VisuallyHidden.Root>Translate</VisuallyHidden.Root>
+              </button>
+              <button
+                className="glancy-summary-popup__action-button glancy-summary-popup__action-button--copy"
+                onClick={handleCopy}
+              >
+                <CopyIcon aria-hidden />
+                <VisuallyHidden.Root>Copy</VisuallyHidden.Root>
+              </button>
+            </div>
+          </>
+        )}
+        <div className="glancy-summary-popup__gradient" />
+        <Toast
+          open={toast.open}
+          message={toast.message}
+          onOpenChange={handleToastOpenChange}
+          rootClassName="glancy-summary-popup__toast-root"
+          descriptionClassName="glancy-summary-popup__toast-message"
+          viewPortClassName="glancy-summary-popup__toast-viewport"
+        />
+      </Popover.Content>
     </Popover.Root>
   )
 }

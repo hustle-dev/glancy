@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import type { SVGProps } from 'react'
 
-import css from './TranslateIcon.module.scss'
-
 const TranslateIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className={clsx(css.root, className)}
+      className={clsx('glancy-translate-icon', className)}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"

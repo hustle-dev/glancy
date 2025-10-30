@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import type { SVGProps } from 'react'
 
-import css from './SummaryIcon.module.scss'
-
 const SummaryIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className={clsx(css.root, className)}
+      className={clsx('glancy-summary-icon', className)}
       {...props}
       viewBox="0 0 34 27"
       fill="none"

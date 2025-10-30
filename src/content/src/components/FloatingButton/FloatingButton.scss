@@ -1,6 +1,6 @@
 @use 'functions' as *;
 
-.root {
+.glancy-floating-button {
   position: absolute;
   z-index: 2147483646;
   display: flex;
@@ -15,14 +15,14 @@
   border-radius: 50%;
   box-shadow: 0 rem(4px) rem(4px) 0 rgb(0 0 0 / 25%);
   transition: transform 0.2s ease-in-out;
-  animation: fadeIn 0.2s ease-in-out;
+  animation: glancyFloatingButtonFadeIn 0.2s ease-in-out;
 
   &:hover {
     transform: scale(1.02);
   }
 }
 
-.hoverCard {
+.glancy-floating-button__hover-card {
   z-index: 2147483647;
   padding: rem(6px) rem(12px);
   background-color: #3f4145;
@@ -30,26 +30,26 @@
   box-shadow: 0 rem(4px) rem(4px) 0 rgb(0 0 0 / 25%);
 
   &[data-state='open'] {
-    animation: fadeIn 0.2s ease-in-out;
+    animation: glancyFloatingButtonFadeIn 0.2s ease-in-out;
   }
 
   &[data-state='closed'] {
-    animation: fadeOut 0.2s ease-in-out;
+    animation: glancyFloatingButtonFadeOut 0.2s ease-in-out;
   }
 }
 
-.hoverCardContent {
+.glancy-floating-button__hover-card-content {
   font-size: rem(12px);
   font-weight: 500;
   line-height: 1.4;
   color: white;
 }
 
-.hoverCardArrow {
+.glancy-floating-button__hover-card-arrow {
   fill: #3f4145;
 }
 
-@keyframes fadeIn {
+@keyframes glancyFloatingButtonFadeIn {
   from {
     opacity: 0;
     transform: translateY(rem(10px));
@@ -61,7 +61,7 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes glancyFloatingButtonFadeOut {
   from {
     opacity: 1;
     transform: translateY(0);

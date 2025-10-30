@@ -1,6 +1,6 @@
 @use 'functions' as *;
 
-.root {
+.glancy-shimmer-loader {
   display: flex;
   flex-direction: column;
   gap: rem(18px);
@@ -9,21 +9,21 @@
   margin-top: rem(70px);
 }
 
-.shimmerLines {
+.glancy-shimmer-loader__lines {
   position: relative;
   width: rem(142px);
   height: rem(53px);
 }
 
-.shimmerLines div {
+.glancy-shimmer-loader__lines div {
   position: absolute;
   height: rem(13);
   background: linear-gradient(90deg, #e8ecf3 0%, #f5f7fa 50%, #e8ecf3 100%);
   background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
+  animation: glancyShimmerAnimation 1.5s infinite;
 }
 
-@keyframes shimmer {
+@keyframes glancyShimmerAnimation {
   0% {
     background-position: -200% 0;
   }
@@ -33,55 +33,55 @@
   }
 }
 
-.line1 {
+.glancy-shimmer-loader__line--1 {
   top: 0;
   left: 0;
   width: rem(58);
 }
 
-.line2 {
+.glancy-shimmer-loader__line--2 {
   top: 0;
   left: rem(65);
   width: rem(22);
 }
 
-.line3 {
+.glancy-shimmer-loader__line--3 {
   top: 0;
   left: rem(93);
   width: rem(49);
 }
 
-.line4 {
+.glancy-shimmer-loader__line--4 {
   top: rem(20);
   left: rem(87);
   width: rem(55);
 }
 
-.line5 {
+.glancy-shimmer-loader__line--5 {
   top: rem(20);
   left: 0;
   width: rem(79);
 }
 
-.line6 {
+.glancy-shimmer-loader__line--6 {
   top: rem(40);
   left: 0;
   width: rem(58);
 }
 
-.line7 {
+.glancy-shimmer-loader__line--7 {
   top: rem(40);
   left: rem(65);
   width: rem(22);
 }
 
-.line8 {
+.glancy-shimmer-loader__line--8 {
   top: rem(40);
   left: rem(93);
   width: rem(49);
 }
 
-.loadingText {
+.glancy-shimmer-loader__text {
   font-size: rem(18);
   font-weight: 500;
   line-height: 1.4;

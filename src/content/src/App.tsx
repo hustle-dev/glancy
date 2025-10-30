@@ -1,9 +1,10 @@
 import { useCallback } from 'react'
+import root from 'react-shadow'
 
-import css from './App.module.scss'
 import FloatingButton from './components/FloatingButton'
 import SummaryPopup from './components/SummaryPopup'
 import { useFloatingUI, useSummarizer, useTextSelection } from './hooks'
+import getAllStyles from './styles'
 
 const App = () => {
   const { selection, setSelection, resetSelection } = useTextSelection()
@@ -20,17 +21,20 @@ const App = () => {
     resetSummary()
   }, [closePopup, resetSelection, resetSummary])
   return (
-    <div className={css.root}>
-      {selection.show && <FloatingButton position={selection.position} onClick={handleButtonClick} />}
-      <SummaryPopup
-        open={showPopup}
-        anchorEl={anchorEl}
-        summary={summary}
-        isLoading={isLoading}
-        isStreaming={isStreaming}
-        onClose={handleClose}
-      />
-    </div>
+    <root.div>
+      <div className="glancy">
+        {selection.show && <FloatingButton position={selection.position} onClick={handleButtonClick} />}
+        <SummaryPopup
+          open={showPopup}
+          anchorEl={anchorEl}
+          summary={summary}
+          isLoading={isLoading}
+          isStreaming={isStreaming}
+          onClose={handleClose}
+        />
+      </div>
+      <style type="text/css">{getAllStyles()}</style>
+    </root.div>
   )
 }
 

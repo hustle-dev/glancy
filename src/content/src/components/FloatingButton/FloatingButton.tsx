@@ -1,7 +1,6 @@
 import { HoverCard, VisuallyHidden } from 'radix-ui'
 
 import pxToRem from '../../utils/pxToRem'
-import css from './FloatingButton.module.scss'
 import SummaryIcon from './icons/SummaryIcon'
 
 interface Position {
@@ -23,19 +22,17 @@ const FloatingButton = ({ position, onClick }: Props) => {
             top: pxToRem(position.y),
             left: pxToRem(position.x),
           }}
-          className={css.root}
+          className="glancy-floating-button"
           onClick={onClick}
         >
           <SummaryIcon />
           <VisuallyHidden.Root>Summarize page content</VisuallyHidden.Root>
         </button>
       </HoverCard.Trigger>
-      <HoverCard.Portal>
-        <HoverCard.Content className={css.hoverCard} side="top" sideOffset={8}>
-          <div className={css.hoverCardContent}>Summarizes long sentences concisely.</div>
-          <HoverCard.Arrow className={css.hoverCardArrow} />
-        </HoverCard.Content>
-      </HoverCard.Portal>
+      <HoverCard.Content className="glancy-floating-button__hover-card" side="top" sideOffset={8}>
+        <div className="glancy-floating-button__hover-card-content">Summarizes long sentences concisely.</div>
+        <HoverCard.Arrow className="glancy-floating-button__hover-card-arrow" />
+      </HoverCard.Content>
     </HoverCard.Root>
   )
 }

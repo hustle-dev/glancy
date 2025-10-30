@@ -1,19 +1,17 @@
-import css from './ShimmerLoader.module.scss'
-
 const ShimmerLoader = () => {
   return (
-    <div className={css.root}>
-      <div className={css.shimmerLines}>
-        <div className={css.line1} />
-        <div className={css.line2} />
-        <div className={css.line3} />
-        <div className={css.line4} />
-        <div className={css.line5} />
-        <div className={css.line6} />
-        <div className={css.line7} />
-        <div className={css.line8} />
+    <div className="glancy-shimmer-loader">
+      <div className="glancy-shimmer-loader__lines">
+        <div className="glancy-shimmer-loader__line--1" />
+        <div className="glancy-shimmer-loader__line--2" />
+        <div className="glancy-shimmer-loader__line--3" />
+        <div className="glancy-shimmer-loader__line--4" />
+        <div className="glancy-shimmer-loader__line--5" />
+        <div className="glancy-shimmer-loader__line--6" />
+        <div className="glancy-shimmer-loader__line--7" />
+        <div className="glancy-shimmer-loader__line--8" />
       </div>
-      <p className={css.loadingText}>Summarizing...</p>
+      <p className="glancy-shimmer-loader__text">Summarizing...</p>
     </div>
   )
 }

@@ -1,12 +1,10 @@
 import clsx from 'clsx'
 import type { SVGProps } from 'react'
 
-import css from './CloseIcon.module.scss'
-
 const CloseIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => {
   return (
     <svg
-      className={clsx(css.root, className)}
+      className={clsx('glancy-close-icon', className)}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 13 13"
       fill="none"
