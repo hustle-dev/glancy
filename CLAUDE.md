@@ -141,7 +141,7 @@ Uses TypeScript 5.9 with strict type checking enabled (`strictTypeChecked` + `st
 
 ## Chrome Extension Specifics
 
-**Permissions**: `contentSettings`, `storage`, `sidePanel`
+**Permissions**: `storage`, `sidePanel`
 
 **Content Script Injection**: Matches all HTTPS pages (`https://*/*`)
 
